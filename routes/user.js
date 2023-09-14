@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
       image: "https://turcolatino.com/wp-content/uploads/2021/05/XIAOMI-REDMI-NOTE-8-64GB-1.jpg"
     }
   ]
-  res.render('index', { products, user: true }); //user or admin param is just passed to check the if condition to check who logs in and display header accordingly
+  res.render('index', { products, user:true }); //user or admin param is just passed to check the if condition to check who logs in and display header accordingly
 });
 
 module.exports = router;
