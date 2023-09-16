@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
       name: "iPhone 13",
       category: "Mobile",
       desc: "This is a good phone",
-      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_hero_09142021_inline.jpg.slideshow-xlarge_2x.jpg"
+      image: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_09142021_inline.jpg.large.jpg"
     },
     {
       name: "POCO F1",
