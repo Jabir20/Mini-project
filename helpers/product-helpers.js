@@ -4,10 +4,11 @@ var db = require('../config/connection')
 module.exports={
 
     addProduct:(product,callback)=>{
-        console.log(product)
+        // console.log(product)
 
         db.get().collection('product').insertOne(product).then((data)=>{
-            callback(true)
+            // console.log(product._id)    //both product._id and data.insertedId returns same value
+            callback(data.insertedId)
         })
     }
 
