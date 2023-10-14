@@ -7,7 +7,7 @@ const { response } = require('../app');
 /* GET home page. */
 router.get('/', function (req, res, next) {
   productHelper.getAllProduct().then((products)=>{
-    console.log(products)
+    // console.log(products)
     res.render('user/view-products', {products});
   })
   // Removing This Dummy data and display data from DB
@@ -54,7 +54,14 @@ router.post('/signup',(req,res)=>{
   })
 })
 router.post('/login',(req,res)=>{
-  userHelper.doLogin(req.body)
+  userHelper.doLogin(req.body).then((response)=>{
+    if(response.status){
+      res.redirect('/')
+    }else{
+      res.redirect('/login')
+    }
+  })
+
 })
 
 module.exports = router;
