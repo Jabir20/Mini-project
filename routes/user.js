@@ -6,9 +6,11 @@ const { response } = require('../app');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  productHelper.getAllProduct().then((products)=>{
+  let user = req.session.user
+  // console.log(user); //used to check whether the value from session is stored in user or not
+  productHelper.getAllProduct().then((products) => {
     // console.log(products)
-    res.render('user/view-products', {products});
+    res.render('user/view-products', { products, user });
   })
   // Removing This Dummy data and display data from DB
   // -------------------------------------------------------------------------------------------------------------------------
@@ -42,26 +44,31 @@ router.get('/', function (req, res, next) {
   // res.render('index', { products, user:true }); //user or admin param is just passed to check the if condition to check who logs in and display header accordingly
 });
 
-router.get('/login',(req,res)=>{
+router.get('/login', (req, res) => {
   res.render('user/login')
 })
-router.get('/signup',(req,res)=>{
+router.get('/signup', (req, res) => {
   res.render('user/signup')
 })
-router.post('/signup',(req,res)=>{
-  userHelper.doSignup(req.body).then((response)=>{
+router.post('/signup', (req, res) => {
+  userHelper.doSignup(req.body).then((response) => {
     console.log(response)
   })
 })
-router.post('/login',(req,res)=>{
-  userHelper.doLogin(req.body).then((response)=>{
-    if(response.status){
+router.post('/login', (req, res) => {
+  userHelper.doLogin(req.body).then((response) => {
+    if (response.status) {
+      // req.session.loggedIn = true
+      req.session.user = response.user
       res.redirect('/')
-    }else{
+    } else {
       res.redirect('/login')
     }
   })
-
+})
+router.get('/logout',(req,res)=>{
+  req.session.destroy()
+  res.redirect('/')
 })
 
 module.exports = router;
