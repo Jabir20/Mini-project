@@ -3,14 +3,17 @@ var router = express.Router();
 var productHelper = require('../helpers/product-helpers')
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  productHelper.getAllProduct().then((products)=>{
-    console.log(products)
-    res.render('admin/view-products', {admin:true, products});
+router.get('/', function (req, res, next) {
+  productHelper.getAllProduct().then((products) => {
+    // console.log(products)
+    res.render('admin/view-products', { admin: true, products });
   })
 
-// This is removed becauses we are going to use the datas directly from database
-// --------------------------------------------------------------------------------------------------------------------------------
+
+
+
+  // This is removed becauses we are going to use the datas directly from database
+  // --------------------------------------------------------------------------------------------------------------------------------
   // let products = [    //Created an array to pass products to index.hbs
   //   {
   //     name: "iPhone 13",
@@ -37,24 +40,33 @@ router.get('/', function(req, res, next) {
   //     image: "https://turcolatino.com/wp-content/uploads/2021/05/XIAOMI-REDMI-NOTE-8-64GB-1.jpg"
   //   }
   // ]
-// --------------------------------------------------------------------------------------------------------------------------------
-  
+  // --------------------------------------------------------------------------------------------------------------------------------
+
 });
-router.get('/add-product',function(req,res){
-  res.render('admin/add-product')
+
+router.get('/add-product', function (req, res) {
+  res.render('admin/add-product', { admin: true })
 })
 
-router.post('/add-product',(req,res)=>{
+router.post('/add-product', (req, res) => {
   // console.log(req.body)
   // console.log(req.files.Image);
-  productHelper.addProduct(req.body,(id)=>{
+  productHelper.addProduct(req.body, (id) => {
     console.log(id);
     let image = req.files.Image
-    image.mv('./public/product-images/'+id+'.jpg',(err,done)=>{
-      if (!err){
+    image.mv('./public/product-images/' + id + '.jpg', (err, done) => {
+      if (!err) {
+
         res.render('admin/add-product')
+        // -----If you want to render the view product page with newly added product use this code ---------
+        // productHelper.getAllProduct().then((products) => {
+        //   // console.log(products)
+        //   res.render('admin/view-products', { admin: true, products });
+        // })
+        // ----------- If you want to render the same add-product page with a successfull msg use this code -----------
+        // res.render('admin/view-products', { admin: true, successMessage: 'Product added successfully' })
       }
-      else{
+      else {
         console.log(err);
       }
     })
