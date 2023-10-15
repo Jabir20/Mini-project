@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var productHelper = require('../helpers/product-helpers')
-
+var productHelper = require('../helpers/product-helpers');
+const { response } = require('../app');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   productHelper.getAllProduct().then((products) => {
@@ -45,7 +45,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/add-product', function (req, res) {
-  res.render('admin/add-product', { admin: true })
+  let value = true
+  res.render('admin/add-product', { admin: true, value })
 })
 
 router.post('/add-product', (req, res) => {
@@ -73,6 +74,23 @@ router.post('/add-product', (req, res) => {
   })
 
 })
+router.get('/products', function (req, res) {
+  res.redirect('/admin')
+})
+
+// either we can use this way
+router.get('/delete-product/:id', (req, res) => {
+  let productId = req.params.id
+  console.log(productId);
+  productHelper.deleteProduct(productId).then((response) => {
+    res.redirect('/admin')
+  })
+})
+// or we can use by this method
+// router.get('/delete-product',(req,res)=>{
+//   let productId = req.query.id
+//   console.log(productId);
+// })
 
 
 module.exports = router;
