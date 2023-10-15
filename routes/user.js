@@ -86,6 +86,7 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/cart',verifyLogin,(req,res)=>{
-  res.render('user/cart')
+  let user = req.session.user
+  res.render('user/cart',{user})
 })
 module.exports = router;
