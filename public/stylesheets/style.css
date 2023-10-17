@@ -1,7 +1,27 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
-a {
-  color: #00B7FF;
+a{
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.banner-img{
+  width: 100%;
+  height: 600px;
+}
+.nav-bg{
+  background: #1baab1;
+}
+.text-color-white{
+  color: white !important;
+}
+.login-btn{
+  color: #1baab1 !important;
+  text-decoration: none !important;
+  font-weight: 500;
+}
+.form-border{
+  border: solid white;
+  border-radius: 10px;
+  
 }
