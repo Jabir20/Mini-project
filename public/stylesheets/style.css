@@ -10,7 +10,7 @@ a{
   height: 600px;
 }
 .nav-bg{
-  background: #1baab1;
+  background: #70B4CB;
 }
 .text-color-white{
   color: white !important;
@@ -24,4 +24,9 @@ a{
   border: solid white;
   border-radius: 10px;
   
+}
+.card-btn{
+  position:absolute;
+  bottom: 10px;
+  left: 37%;
 }

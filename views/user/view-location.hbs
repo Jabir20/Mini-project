@@ -1,8 +1,7 @@
-{{!-- Instead of this we use user/view-location --}}
-{{!-- 
+
     <section>
         <div class="banner border-bottom pb-4">
-            <img src="{{banner}}" class="banner-img">
+            <img src="{{banner}}" class="banner-img" style="margin-top: -8%">
         </div>
     </section>
     <section class="border-bottom pb-4">
@@ -10,14 +9,14 @@
             <div class="row">
                 {{#each places}}
                 <div class="col-md-4 mt-4">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; height: 25rem">
                         <img class="card-img-top"
                             src="/location-images/{{this._id}}.jpg"
-                            alt="Card image cap">
+                            alt="Card image cap" style="height: 191px;">
                         <div class="card-body">
-                            <h5 class="card-title">{{this.Name}}</h5>
+                            <h5 class="card-title"><b>{{this.Name}}</b></h5>
                             <p class="card-text">{{this.Description}}</p>
-                            <a href="#" class="btn btn-primary">Visit</a>
+                            <a href="#" class="card-btn btn btn-primary">Visit</a>
                         </div>
                     </div>
                 </div>
@@ -25,4 +24,4 @@
             </div>
         </div>
 
-    </section> --}}
+    </section>

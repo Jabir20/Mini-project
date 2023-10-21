@@ -1,0 +1,39 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Add Location</h2>
+                <form action="/admin/add-location" method="POST" enctype="multipart/form-data">
+                    <label for="">Location Name</label>
+                    <input type="text" name="Name" class="form-control">
+
+                    <label for="">Description</label>
+                    <input type="text" name="Description" class="form-control">
+
+                    <label for="">Attraction</label>
+                    <input type="text" name="Attraction" class="form-control">
+
+                    <label for="">Local Cuisine</label>
+                    <input type="text" name="Cuisine" class="form-control">
+
+                    <label for="">Activity</label>
+                    <input type="text" name="Activity" class="form-control">
+
+                    <label for="">Image</label>
+                    <input type="file" name="Image" class="form-control">
+
+                    <button type="submit" class="btn btn-info mt-4">Submit</button>
+
+                </form>
+                {{!-- <br>
+                {{#if successMessage}}
+                <div class="alert alert-success">
+                    {{successMessage}}
+                </div>
+                {{/if}} --}}
+
+            </div>
+        </div>
+
+    </div>
+</section>
