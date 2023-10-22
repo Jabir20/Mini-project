@@ -1,3 +1,4 @@
 module.exports={
-    LOCATIONS:'places'
+    LOCATIONS:'places',
+    USER:'user'
 }
