@@ -39,7 +39,6 @@ module.exports = {
                     Attraction:details.Attraction,
                     Cuisine:details.Cuisine,
                     Activity:details.Activity
-
                 }
             }).then((response)=>{
                 resolve(response)

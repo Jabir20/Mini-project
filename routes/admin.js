@@ -39,9 +39,13 @@ router.get('/edit-location', async (req, res) => {
 router.post('/edit-location', (req, res) => {
   let locationId = req.query.id
   productHelper.updateLocation(locationId, req.body).then(()=>{
-    res.redirect('/admin')
-    let image = req.files.Image
-    image.mv('./public/location-images/' + locationId + '.jpg')
+    if (req.files && req.files.Image) {
+      let image = req.files.Image
+      res.redirect('/admin')
+      image.mv('./public/location-images/' + locationId + '.jpg')
+    }else{
+      res.redirect('/admin')
+    }
   })
 })
 
