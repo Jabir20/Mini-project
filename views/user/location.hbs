@@ -1,0 +1,102 @@
+{{!-- <section style="padding-top: 85px;">
+    <div class="loc-image">
+        <img src="{{banner2}}" alt="Location image">
+    </div>
+    <div class="loc-description">
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+            Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+    </div>
+    <div class="loc-activities row col-md-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+    </div>
+</section> --}}
+
+
+
+<section>
+    <div class="banner border-bottom pb-4">
+        <img src="{{banner2}}" class="banner-img" style="margin-top: -2%">
+    </div>
+
+    <div class="loc-description mx-5 px-3 pt-2">
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+            Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+    </div>
+
+    <div class="loc-activities row" style="margin-left: 245px;">
+        <div class="card col-md-3 mx-1" style="width: 18rem;">
+            <img class="card-img-top" src="{{banner1}}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="card col-md-3 mx-1" style="width: 18rem;">
+            <img class="card-img-top" src="{{banner4}}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="card col-md-3 mx-1" style="width: 18rem;">
+            <img class="card-img-top" src="{{banner3}}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="border-bottom pb-4">
+        <div class="container mt-2">
+            <div class="row">
+                {{#each places}}
+                <div class="col-md-4 mt-4">
+                    <div class="card" style="width: 18rem; height: 25rem">
+                        <img class="card-img-top" src="/location-images/{{this._id}}.jpg" alt="Card image cap"
+                            style="height: 191px;">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{this.Name}}</b></h5>
+                            <p class="card-text">{{this.Description}}</p>
+                            <a href="/location" class="card-btn btn btn-primary">Visit</a>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+
+    </section>

@@ -27,9 +27,20 @@
             {{#if Account}}
             {{!-- <button class="btn mr-5"><a href="/login" class="login-btn">Login</a></button> --}}
             <div class="dropdown">
-                <button class="btn login-btn mr-2">Account</button>
+                <button class="btn login-btn mr-2 button">
+                    {{#if userSession}}Welcome!
+                    {{userSession.Name}}
+                    {{else}}
+                    Account
+                    {{/if}}
+                </button>
                 <div class="dropdown-content">
+                    {{#if userSession}}
+                    <a href="/logout">Logout</a>
+                    {{else}}
                     <a href="/login">Login</a>
+                    {{/if}}
+                    
                     {{!-- <a href="#">Item 2</a> --}}
                     {{!-- <a href="#">Item 3</a> --}}
                 </div>

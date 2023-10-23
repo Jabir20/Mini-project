@@ -1,3 +1,4 @@
+// Banner Slider
 const slider = document.querySelector('.slider');
 const sliderWidth = slider.clientWidth;
 let currentSlide = 1;
@@ -15,3 +16,5 @@ function scrollToNextSlide() {
 }
 
 setInterval(scrollToNextSlide, 2000); // Scroll every 2 seconds
+
+// API Related
