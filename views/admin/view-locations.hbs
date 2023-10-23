@@ -14,8 +14,16 @@
                 <tr>
                     <th scope="row">1</th>
                     <th>{{this.Name}}</th>
-                    <td>{{this.Description}}</td>
+                    <td style="width: 600px;">{{this.Description}}</td>
                     <td><img src="/location-images/{{this._id}}.jpg" style="width: 70px; height:50px"></td>
+                    <td>
+                        <a href="/admin/edit-product/{{this._id}}" class="btn btn-warning">Edit</a>
+                        <a href="/admin/delete-product?id={{this._id}}" class="btn btn-danger" onclick="return confirm('Do you want to delete {{this.Name}} ?')">Delete</a>
+                        {{!-- <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger">Delete</a> also we can
+                        call like this --}}
+                        {{!-- if we use the ? method then we use req.query.id, if we use the second method we use
+                        req.params.id --}}
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>

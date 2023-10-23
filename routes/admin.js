@@ -24,5 +24,11 @@ router.post('/add-location', (req, res) => {
     })
   })
 })
+router.get('/delete-product',(req,res)=>{
+  let locationId = req.query.id
+  productHelper.deleteLocation(locationId).then((response)=>{
+    res.redirect('/admin')
+  })
+})
 
 module.exports = router;
