@@ -1,0 +1,40 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Edit Location</h2>
+                <form action="/admin/edit-location?id={{location._id}}" method="POST" enctype="multipart/form-data">
+                    <label for="">Location Name</label>
+                    <input type="text" name="Name" class="form-control" value="{{location.Name}}">
+
+                    <label for="">Description</label>
+                    <input type="text" name="Description" class="form-control" value="{{location.Description}}">
+
+                    <label for="">Attraction</label>
+                    <input type="text" name="Attraction" class="form-control" value="{{location.Attraction}}">
+
+                    <label for="">Local Cuisine</label>
+                    <input type="text" name="Cuisine" class="form-control" value="{{location.Cuisine}}">
+
+                    <label for="">Activity</label>
+                    <input type="text" name="Activity" class="form-control" value="{{location.Activity}}">
+
+                    <label for="">Image</label>
+                    <img src="/location-images/{{location._id}}.jpg" alt="" style="width: 100px;height:auto;">
+                    <input type="file" name="Image" class="form-control">
+
+                    <button type="submit" class="btn btn-info mt-4">Update</button>
+
+                </form>
+                {{!-- <br>
+                {{#if successMessage}}
+                <div class="alert alert-success">
+                    {{successMessage}}
+                </div>
+                {{/if}} --}}
+
+            </div>
+        </div>
+
+    </div>
+</section>

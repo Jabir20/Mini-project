@@ -21,5 +21,29 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    getProduct:(locationId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.LOCATIONS).findOne({_id: new ObjectId(locationId)}).then((response)=>{
+                resolve(response)
+            })
+        })
+    },
+    updateLocation:(locationId,details)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.LOCATIONS)
+            .updateOne({_id:new ObjectId(locationId)},{
+                $set:{
+                    Name:details.Name,
+                    Description:details.Description,
+                    Attraction:details.Attraction,
+                    Cuisine:details.Cuisine,
+                    Activity:details.Activity
+
+                }
+            }).then((response)=>{
+                resolve(response)
+            })
+        })
     }
 }

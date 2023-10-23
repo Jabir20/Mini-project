@@ -24,10 +24,24 @@ router.post('/add-location', (req, res) => {
     })
   })
 })
-router.get('/delete-product',(req,res)=>{
+router.get('/delete-location', (req, res) => {
   let locationId = req.query.id
-  productHelper.deleteLocation(locationId).then((response)=>{
+  productHelper.deleteLocation(locationId).then((response) => {
     res.redirect('/admin')
+  })
+})
+router.get('/edit-location', async (req, res) => {
+  let locationId = req.query.id
+  let location = await productHelper.getProduct(locationId)
+  console.log(location);
+  res.render('admin/edit-location', { location })
+})
+router.post('/edit-location', (req, res) => {
+  let locationId = req.query.id
+  productHelper.updateLocation(locationId, req.body).then(()=>{
+    res.redirect('/admin')
+    let image = req.files.Image
+    image.mv('./public/location-images/' + locationId + '.jpg')
   })
 })
 
