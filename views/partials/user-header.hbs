@@ -1,4 +1,4 @@
-<header style="position: fixed; width:100%; z-index: 1;">
+<header style="position: absolute; width:100%; z-index: 1;">
     <nav class="navbar navbar-expand-lg navbar-light nav-bg pt-4 ">
 
         <div class="collapse navbar-collapse mb-1" id="navbarSupportedContent">
@@ -25,6 +25,18 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form> --}}
             {{#if Account}}
+            <div class="search-container mr-3">
+                <input type="search" class="form-control searchBox" id="search-input" name="searchBox"
+                    placeholder="Search Here...">
+                <button class=" search-btn"><svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20"
+                        height="25" fill="#fff" viewBox="0 0 256 256">
+                        <path
+                            d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z">
+                        </path>
+                    </svg></button>
+            </div><br>
+
+
             {{!-- <button class="btn mr-5"><a href="/login" class="login-btn">Login</a></button> --}}
             <div class="dropdown">
                 <button class="btn login-btn mr-2 button">
@@ -40,7 +52,7 @@
                     {{else}}
                     <a href="/login">Login</a>
                     {{/if}}
-                    
+
                     {{!-- <a href="#">Item 2</a> --}}
                     {{!-- <a href="#">Item 3</a> --}}
                 </div>
@@ -50,4 +62,64 @@
 
         </div>
     </nav>
+    <div id="search-results" style="padding-top: 5%; padding-left: 76%;"></div>
 </header>
+
+{{!-- Script for the search box --}}
+<script>
+    const searchBox = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
+
+    searchBox.addEventListener("input", () => {
+        const searchTerm = searchBox.value.trim();
+        if (searchTerm) {
+            // Send an AJAX request to your server with the searchTerm
+            // You can use fetch or jQuery.ajax to make the request
+            // Example using fetch:
+            fetch(`/search?term=${searchTerm}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Process the data and display matching results
+                    displayResults(data);
+                });
+        } else {
+            // Clear the results container if the search box is empty
+            searchResults.innerHTML = "";
+        }
+        document.addEventListener("click", (event) => {
+            if (!searchBox.contains(event.target) && !searchResults.contains(event.target)) {
+                // Click occurred outside the search box and results container
+                searchResults.style.display = "none";
+                searchBox.value="";
+            }
+        });
+
+    });
+
+    function displayResults(results) {
+        // Clear previous results
+        searchResults.innerHTML = "";
+
+        // Iterate over the matching results and create a list of items with links
+        const ul = document.createElement("ul");
+        ul.classList.add("search-result-list");
+        results.forEach((result) => {
+            const li = document.createElement("li");
+            const link = document.createElement("a");
+            link.textContent = result.name; // Assuming 'name' is the property in the result
+            link.href = `/your-respective-page/${result.id}`; // Provide the appropriate URL
+            li.appendChild(link);
+            ul.appendChild(li);
+        });
+
+        // Append the list of results to the results container
+
+        searchResults.appendChild(ul);
+        searchResults.style.display = "block";
+    }
+
+
+
+
+
+</script>

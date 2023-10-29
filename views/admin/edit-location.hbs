@@ -20,8 +20,10 @@
                     <input type="text" name="Activity" class="form-control" value="{{location.Activity}}">
 
                     <label for="">Image</label>
-                    <img src="/location-images/{{location._id}}.jpg" alt="" style="width: 100px;height:auto;">
-                    <input type="file" name="Image" class="form-control">
+                    <img src="/location-images/{{location._id}}.jpg" alt="" style="width: 100px;height:auto;"
+                        id="imgView" class="py-2">
+
+                    <input type="file" name="Image" class="form-control" onchange="viewImage(event)">
 
                     <button type="submit" class="btn btn-info mt-4">Update</button>
 

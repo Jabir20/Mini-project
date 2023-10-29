@@ -36,7 +36,9 @@ router.get('/back', (req, res) => {
 })
 router.post('/signup', (req, res) => {
   userHelper.doSignup(req.body).then((response) => {
-    console.log(response);
+    req.session.loggedIn = true
+    req.session.user = response
+    res.redirect('/') 
   })
 })
 router.post('/login', (req, res) => {
@@ -59,5 +61,28 @@ router.get('/location', verifyLogin, (req, res) => {
   res.render('user/location', { user: true, banner1, banner2, banner3, banner4 })
 })
 
+// For testing the search box part
+const locations = [
+  { name: "Location 1" },
+  { name: "Location 2" },
+  { name: "Location 3" },
+  { name: "Location 3" },
+  { name: "Location 3" },
+  { name: "Thrissur" },
+  { name: "Kollam" },
+  { name: "Alappuzha" },
+  // Add more location objects here
+];
+router.get("/search", (req, res) => {
+  const searchTerm = req.query.term.toLowerCase();
+  const matchingLocations = locations.filter((location) =>
+    location.name.toLowerCase().includes(searchTerm)
+  );
+  res.json(matchingLocations);
+}); 
+
+
+
+// 
 
 module.exports = router;
