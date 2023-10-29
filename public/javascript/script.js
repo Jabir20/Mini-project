@@ -23,5 +23,7 @@ function viewImage(event) {
     document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
 }
 
+// Search Box related
+// code written in the user-header file
 
-// API Related
+

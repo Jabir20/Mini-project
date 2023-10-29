@@ -1,5 +1,7 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 a {
@@ -143,7 +145,7 @@ a {
 
 .search-container {
   display: flex;
-  width: 14.5%;
+  width: 13%;
   background-color: #fff;
   border-radius: 5px;
 }
@@ -184,8 +186,7 @@ a {
   position: relative;
   list-style: none;
   margin-top: -80px;
-  margin-left: -26px;
-  margin-right: 10px;
+
 }
 
 ul.search-result-list a {
@@ -206,6 +207,45 @@ ul.search-result-list li:nth-child(even) {
 ul.search-result-list li:nth-child(odd) {
   background-color: #f2f2f2;
 }
-.search-result-list li:hover{
+
+.search-result-list li:hover {
   background-color: #70B4CB !important;
+}
+
+.login{
+  top: -10px;
+  background-image: url('../images/login-bg.jpg');
+  background-size: cover;
+}
+.login-container{
+  margin-left: 10px;
+  padding: 70px 40px 110px 40px;
+  background: linear-gradient( rgba(156, 207, 224, 0.7),rgba(240, 248, 255, 0.55));
+
+  border: aliceblue;
+}
+.login-text{
+  font-weight:700;
+  margin-top: -55px;
+  margin-bottom: 55px;
+}
+#login-form a{
+  color: #302b2b !important;
+}
+.signup{
+  top: -10px;
+  background-image: url('../images/signup-bg.jpg');
+  background-size: cover;
+}
+.signup-container{
+  margin-left: 10px;
+  padding: 70px 40px 110px 40px;
+  background: linear-gradient(rgba(253,231,177, 0.5), rgba(210, 196, 174, 0.4));
+  border: aliceblue;
+}
+#signup-form a{
+  color: #000000 !important;
+}
+.login-label{
+  font-size:larger;
 }

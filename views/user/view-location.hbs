@@ -1,42 +1,40 @@
-
-    <section>
-        {{!-- <div class="banner border-bottom pb-4">
-            <img src="{{banner}}" class="banner-img" style="margin-top: -2%">
-        </div> --}}
-        <div class="slider-wrapper" style="position:relative;">
-            <div class="slider">
-                <img id="slide-1" src="{{banner1}}" alt="">
-                <img id="slide-2" src="{{banner2}}" alt="">
-                <img id="slide-3" src="{{banner3}}" alt="">
-                <img id="slide-4" src="{{banner4}}" alt="">
-            </div>
-            <div class="slider-nav">
-                <a href="#slide-1"></a>
-                <a href="#slide-2"></a>
-                <a href="#slide-3"></a>
-                <a href="#slide-4"></a>
-            </div>
+<section>
+    {{!-- <div class="banner border-bottom pb-4">
+        <img src="{{banner}}" class="banner-img" style="margin-top: -2%">
+    </div> --}}
+    <div class="slider-wrapper" style="position:relative;">
+        <div class="slider" style="overflow-x: hidden;">
+            <img id="slide-1" src="{{banner1}}" alt="">
+            <img id="slide-2" src="{{banner2}}" alt="">
+            <img id="slide-3" src="{{banner3}}" alt="">
+            <img id="slide-4" src="{{banner4}}" alt="">
         </div>
-    </section>
-    <section class="border-bottom pb-4">
-        <div class="container mt-2">
-            <div class="row">
-                {{#each places}}
-                <div class="col-md-4 mt-4">
-                    <div class="card" style="width: 18rem; height: 25rem">
-                        <img class="card-img-top"
-                            src="/location-images/{{this._id}}.jpg"
-                            alt="Card image cap" style="height: 191px;">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>{{this.Name}}</b></h5>
-                            <p class="card-text">{{this.Description}}</p>
-                            <a href="/location" class="card-btn btn btn-primary">Visit</a>
-                        </div>
+        <div class="slider-nav">
+            <a href="#slide-1"></a>
+            <a href="#slide-2"></a>
+            <a href="#slide-3"></a>
+            <a href="#slide-4"></a>
+        </div>
+    </div>
+</section>
+<section class="border-bottom pb-4">
+    <div class="container mt-2">
+        <div class="row">
+            {{#each places}}
+            <div class="col-md-4 mt-4">
+                <div class="card" style="width: 18rem; height: 25rem">
+                    <img class="card-img-top" src="/location-images/{{this._id}}.jpg" alt="Card image cap"
+                        style="height: 191px;">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>{{this.Name}}</b></h5>
+                        <p class="card-text">{{this.Description}}</p>
+                        <a href="/location" class="card-btn btn btn-primary">Visit</a>
                     </div>
                 </div>
-                {{/each}}
             </div>
+            {{/each}}
         </div>
-        
+    </div>
 
-    </section>
+
+</section>

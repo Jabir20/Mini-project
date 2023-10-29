@@ -1,21 +1,21 @@
 
 
-<body style="background-color: #1baab1; width:100%">
+<body class="login" style=" width:100%">
     <section style="padding-top:70px">
-        <div class="row pt-3">
-            <div class="col-md-6  m-auto form-border">
+        <div class="row pt-5 mt-4">
+            <div class="col-md-6  m-auto form-border login-container">
                 <div class="container mt-5 pl-5">
-                    <h2 class="text-center">Login</h2>
-                    <form action="/login" method="post">
+                    <h2 class="text-center login-text">Login</h2>
+                    <form action="/login" method="post" id="login-form">
                     {{#if loginErr}}
                     <p class="text-danger">Invalid Username or Password</p>
                     {{/if}}
                         <div class="form-group">
-                            <label for="">Email address</label>
+                            <label class="login-label" for="">Email address</label>
                             <input type="email" class="form-control" name="Email" placeholder="Enter email">
                         </div>
                         <div class="form-group">
-                            <label for="">Password</label>
+                            <label class="login-label" for="">Password</label>
                             <input type="password" class="form-control" name="Password" placeholder="Enter password">
                         </div>
                         <div class="form-group">
