@@ -1,13 +1,47 @@
 <section>
-    <div class="banner border-bottom pb-4">
-        <img src="/location-images/{{location._id}}.jpg" class="banner-img" style="margin-top: -2%">
-    </div>
+        <div class="banner border-bottom pb-4">
+            <img src="/location-images/{{location._id}}.jpg" class="banner-img" style="margin-top: -2%">
+
+            {{!-- Weather API --}}
+            <div class="weather-card">
+                
+                {{!-- <div class="error">
+                    <p>Invalid city name</p>
+                </div> --}}
+
+                <div class="weather">
+                    <img src="/images/weatherAPI/{{weatherData.icon}}" class="weather-icon">
+                    <h1 class="temp">{{weatherData.temp}}</h1>
+                    <h2 class="city">{{weatherData.city}}</h2>
+                    <div class="weather-details">
+                        <div class="weather-col">
+                            <img src="/images/weatherAPI/humidity.png">
+                            <div>
+                                <p class="humidity">{{weatherData.humidity}}</p>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+                        <div class="weather-col">
+                            <img src="/images/weatherAPI/wind.png">
+                            <div>
+                                <p class="wind">{{weatherData.wind}}</p>
+                                <p>Wind</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- --}}
+
 
     <div class="loc-description mx-5 px-3 pt-2">
         <p>
             {{location.Description}}
         </p>
     </div>
+
+
 
     <div class="loc-activities row" style="margin-left: 245px;">
         <div class="card col-md-3 mx-1" style="width: 18rem;">

@@ -21,7 +21,7 @@ const banner4 = "/images/banner-image4.jpg"
 router.get('/', function (req, res, next) {
   let userSession = req.session.user
   // console.log(userSession);
-  productHelper.getAllProducts().then((places) => {
+  userHelper.getThreeProducts().then((places) => {
     res.render('user/view-location', { places, banner1, banner2, banner3, banner4, user: true, footer: true, Account: true, userSession });
   })
 });
@@ -88,14 +88,36 @@ router.get("/search", async (req, res) => {
 
 //
 
+// router.get('/location', async (req, res) => {
+//   const id = req.query.id
+//   // const name = req.query.name
+//   // console.log(req.session.user);
+//   // checkWeather(name)
+//   await userHelper.viewLocation(id).then((location) => {
+//     console.log(response);
+//     res.render('user/location', { user: true, Account: true, location, userSession: req.session.user })
+//   })
+// })
+
+// Move the checkWeather function inside the route handler
 router.get('/location', async (req, res) => {
-  const id = req.query.id
-  console.log(req.session.user);
-  await userHelper.viewLocation(id).then((location) => {
-    console.log(response);
-    res.render('user/location', { user: true, Account: true, location, userSession: req.session.user })
-  })
-})
+  const id = req.query.id;
+  const name = req.query.name;
+
+  try {
+    // Fetch the weather data and location details concurrently
+    const [weatherData, location] = await Promise.all([
+      userHelper.checkWeather(name),
+      userHelper.viewLocation(id),
+    ]);
+    console.log("weatherData",weatherData);
+    // Render the view after you have both weather data and location details
+    res.render('user/location', { user: true, Account: true, location, userSession: req.session.user, weatherData });
+  } catch (error) {
+    // Handle errors appropriately
+    res.status(500).send('Error fetching data.');
+  }
+});
 
 
 module.exports = router;

@@ -116,7 +116,7 @@
             const li = document.createElement("li");
             const link = document.createElement("a");
             link.textContent = result.Name; // Assuming 'name' is the property in the result
-            link.href = `/location?id=${result._id}`; // Provide the appropriate URL
+            link.href = `/location?id=${result._id}&name=${result.Name}`; // Provide the appropriate URL
             li.appendChild(link);
             ul.appendChild(li);
         });
