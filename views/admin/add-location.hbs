@@ -1,5 +1,5 @@
 <section>
-    <div class="container mt-4">
+    <div class="container mt-4" style="padding-top: 80px;">
         <div class="row">
             <div class="col-md-6">
                 <h2 class="text-center">Add Location</h2>
@@ -22,18 +22,31 @@
                     <label for="">Image</label>
                     <input type="file" name="Image" class="form-control">
 
-                    <button type="submit" class="btn btn-info mt-4">Submit</button>
-
-                </form>
-                {{!-- <br>
-                {{#if successMessage}}
-                <div class="alert alert-success">
-                    {{successMessage}}
-                </div>
-                {{/if}} --}}
-
+                    <button type="submit" class="btn btn-info mt-4">Add</button>
             </div>
-        </div>
+            <div class="col-md-3 mt-5 ml-5">
+                <label for="">Activity 1</label>
+                <input type="file" name="Image" class="form-control mb-2">
+                <label for="">Activity 1 Description</label>
+                <input type="text" name="Activity" class="form-control mb-4">
+                <label for="">Activity 2</label>
+                <input type="file" name="Image" class="form-control mb-2">
+                <label for="">Activity 2 Description</label>
+                <input type="text" name="Activity" class="form-control mb-4">
+                <label for="">Activity 3</label>
+                <input type="file" name="Image" class="form-control mb-2">
+                <label for="">Activity 3 Description</label>
+                <input type="text" name="Activity" class="form-control mb-4">
+            </div>
 
+            </form>
+            {{!-- <br>
+            {{#if successMessage}}
+            <div class="alert alert-success">
+                {{successMessage}}
+            </div>
+            {{/if}} --}}
+
+        </div>
     </div>
 </section>

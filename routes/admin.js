@@ -49,4 +49,18 @@ router.post('/edit-location', (req, res) => {
   })
 })
 
+router.get('/view-feedback', (req, res) => {
+  productHelper.getAllFeedbacks().then((feedbacks) => {
+    console.log(feedbacks);
+    res.render('admin/view-feedback', { feedbacks, admin: true })
+  })
+});
+
+router.get('/view-suggestion', (req, res) => {
+  productHelper.getAllSuggestions().then((suggestions) => {
+    console.log(suggestions);
+    res.render('admin/view-suggestion', { suggestions, admin: true })
+  })
+});
+
 module.exports = router;

@@ -44,5 +44,17 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    getAllFeedbacks: () => {
+        return new Promise(async (resolve, reject) => {
+            let feedbacks = await db.get().collection(collection.FEEDBACK).find().toArray();
+            resolve(feedbacks)
+        })
+    },
+    getAllSuggestions: () => {
+        return new Promise(async (resolve, reject) => {
+            let suggestions = await db.get().collection(collection.SUGGESTION).find().toArray();
+            resolve(suggestions)
+        })
     }
 }

@@ -1,38 +1,39 @@
 <section>
-        <div class="banner border-bottom pb-4">
-            <img src="/location-images/{{location._id}}.jpg" class="banner-img" style="margin-top: -2%">
+    <div class="banner border-bottom pb-4">
+        <img src="/location-images/{{location._id}}.jpg" class="banner-img" style="margin-top: -2%">
 
-            {{!-- Weather API --}}
-            <div class="weather-card">
-                
-                {{!-- <div class="error">
-                    <p>Invalid city name</p>
-                </div> --}}
+        {{!-- Weather API --}}
+        <div class="weather-card">
 
-                <div class="weather">
-                    <img src="/images/weatherAPI/{{weatherData.icon}}" class="weather-icon">
-                    <h1 class="temp">{{weatherData.temp}}</h1>
-                    <h2 class="city">{{weatherData.city}}</h2>
-                    <div class="weather-details">
-                        <div class="weather-col">
-                            <img src="/images/weatherAPI/humidity.png">
-                            <div>
-                                <p class="humidity">{{weatherData.humidity}}</p>
-                                <p>Humidity</p>
-                            </div>
-                        </div>
-                        <div class="weather-col">
-                            <img src="/images/weatherAPI/wind.png">
-                            <div>
-                                <p class="wind">{{weatherData.wind}}</p>
-                                <p>Wind</p>
-                            </div>
+            {{!-- <div class="error">
+                <p>Invalid city name</p>
+            </div> --}}
+
+            <div class="weather">
+                <img src="/images/weatherAPI/{{weatherData.icon}}" class="weather-icon">
+                <h1 class="temp">{{weatherData.temp}}</h1>
+                <h2 class="city">{{weatherData.city}}</h2>
+                {{!-- <div class="weather-details"> --}}
+                    <div class="weather-col">
+                        <img src="/images/weatherAPI/humidity.png">
+                        <div>
+                            <p class="humidity">{{weatherData.humidity}}</p>
+                            <p>Humidity</p>
                         </div>
                     </div>
-                </div>
+                    <div class="weather-col">
+                        <img src="/images/weatherAPI/wind.png">
+                        <div>
+                            <p class="wind">{{weatherData.wind}}</p>
+                            <p>Wind</p>
+                        </div>
+                    </div>
+                    {{!--
+                </div> --}}
             </div>
         </div>
-        {{!-- --}}
+    </div>
+    {{!-- --}}
 
 
     <div class="loc-description mx-5 px-3 pt-2">
@@ -43,48 +44,27 @@
 
 
 
-    <div class="loc-activities row" style="margin-left: 245px;">
-        <div class="card col-md-3 mx-1" style="width: 18rem;">
-            <img class="card-img-top" src="{{banner1}}" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">{{location.Attraction}}</p>
+    <div class="pt-2 pb-4">
+        <div class="loc-activities row" style="margin-left: 195px;">
+            <div class="card col-md-3 mr-5" style="width: 18rem;">
+                <img class="card-img-top border-bottom pb-1" style="height:13rem; width:331px; margin-left: -14px; margin-top: 1px;" src="/location-images/locations/{{location._id}}/a.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">{{location.Attraction}}</p>
+                </div>
             </div>
-        </div>
-        <div class="card col-md-3 mx-1" style="width: 18rem;">
-            <img class="card-img-top" src="{{banner4}}" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+            <div class="card col-md-3 mr-5" style="width: 18rem;">
+                <img class="card-img-top border-bottom pb-1" style="height:13rem; width:331px; margin-left: -14px; margin-top: 1px;" src="/location-images/locations/{{location._id}}/b.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                </div>
             </div>
-        </div>
-        <div class="card col-md-3 mx-1" style="width: 18rem;">
-            <img class="card-img-top" src="{{banner3}}" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+            <div class="card col-md-3 mx-1" style="width: 18rem;">
+                <img class="card-img-top border-bottom pb-1" style="height:13rem; width:331px; margin-left: -14px; margin-top: 1px;" src="/location-images/locations/{{location._id}}/c.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                </div>
             </div>
         </div>
     </div>
-
-    <section class="border-bottom pb-4">
-        <div class="container mt-2">
-            <div class="row">
-                {{#each places}}
-                <div class="col-md-4 mt-4">
-                    <div class="card" style="width: 18rem; height: 25rem">
-                        <img class="card-img-top" src="/location-images/{{this._id}}.jpg" alt="Card image cap"
-                            style="height: 191px;">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>{{this.Name}}</b></h5>
-                            <p class="card-text">{{this.Description}}</p>
-                            <a href="/location" class="card-btn btn btn-primary">Visit</a>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-        </div>
-
-
-    </section>
-</section>

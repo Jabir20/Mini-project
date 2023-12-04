@@ -5,7 +5,7 @@ let currentSlide = 1;
 
 function scrollToNextSlide() {
     currentSlide++;
-    if (currentSlide > 4) {
+    if (currentSlide > 6) {
         currentSlide = 1;
     }
     const scrollAmount = (currentSlide - 1) * sliderWidth;
@@ -23,50 +23,58 @@ function viewImage(event) {
     document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
 }
 
+
+
+
 // Search Box related
 // └─> code written in the user-header file
+// script for search box
+const searchBox = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+const searchBtn = document.getElementById("search-btn");
 
-// Weather API related code
-const apiKey = "65c7cf2933d703385c935e271566f6b7";
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-
-async function checkWeather(city) {
-    const response = await fetch(apiUrl + city + `&appid=${apiKey}`)
-
-    if (response.status == 404) {
-        document.querySelector(".weather").style.display = "none"
-        document.querySelector(".error").style.display = "block"
+searchBox.addEventListener("input", () => {
+    const searchTerm = searchBox.value.trim();
+    if (searchTerm) {
+        // Send an AJAX request to your server with the searchTerm
+        // You can use fetch or jQuery.ajax to make the request
+        // Example using fetch:
+        fetch(`/search?term=${searchTerm}`)
+            .then((response) => response.json())
+            .then((data) => {
+                // Process the data and display matching results
+                displayResults(data);
+            });
+    } else {
+        // Clear the results container if the search box is empty
+        searchResults.innerHTML = "";
     }
-    else {
-        var data = await response.json();
-        document.querySelector(".error").style.display = "none"
+    document.addEventListener("click", (event) => {
+        if (!searchBox.contains(event.target) && !searchResults.contains(event.target)) {
+            // Click occurred outside the search box and results container
+            searchResults.style.display = "none";
+            searchBox.value = "";
+        }
+    });
 
-        document.querySelector('.city').innerHTML = data.name;
-        document.querySelector('.temp').innerHTML = Math.round(data.main.temp) + "°C";
-        document.querySelector('.humidity').innerHTML = data.main.humidity + "%";
-        document.querySelector('.wind').innerHTML = data.wind.speed + "km/hr";
+});
 
-        if (data.weather[0].main == "Clouds") {
-            weatherIcon.src = "images/clouds.png";
-        }
-        else if (data.weather[0].main == "Clear") {
-            weatherIcon.src = "images/clear.png";
-        }
-        else if (data.weather[0].main == "Rain") {
-            weatherIcon.src = "images/rain.png";
-        }
-        else if (data.weather[0].main == "Drizzle") {
-            weatherIcon.src = "images/drizzle.png";
-        }
-        else if (data.weather[0].main == "Snow") {
-            weatherIcon.src = "images/snow.png";
-        }
-        else if (data.weather[0].main == "Mist") {
-            weatherIcon.src = "images/mist.png";
-        }
 
-        document.querySelector(".weather").style.display = "block"
-    }
 
+
+// feedback popup
+function submitFeedback() {
+    alert("Feedback sent successfully")
+    setTimeout(function () {
+        location.reload();
+    }, 10);
+}
+
+// suggestion popup
+function submitSuggestion() {
+    alert("Suggestion sent successfully")
+    setTimeout(function () {
+        location.reload();
+    }, 10);
 }
 

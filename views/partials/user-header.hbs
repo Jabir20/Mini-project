@@ -1,5 +1,5 @@
-<header style="position: absolute; width:100%; z-index: 1;">
-    <nav class="navbar navbar-expand-lg navbar-light nav-bg pt-4 ">
+<header style="position: fixed; width:100%; z-index: 1;">
+    <nav class="navbar navbar-expand-lg nav-bg pt-4 ">
 
         <div class="collapse navbar-collapse mb-1" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto text-color">
@@ -7,16 +7,16 @@
                     <a class="nav-link text-color-white link" href="/">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-color-white link" href="#">Popular Places</a>
+                    <a class="nav-link text-color-white link" href="/all-places">All Places</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-color-white link" href="#">About</a>
+                    <a class="nav-link text-color-white link" href="#footer">About</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-color-white link" href="#">Suggestions</a>
+                    <a class="nav-link text-color-white link" href="/suggestion">Suggestions</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-color-white link" href="#">Feedback</a>
+                    <a class="nav-link text-color-white link" href="/feedback">Feedback</a>
                 </li>
 
             </ul>
@@ -63,47 +63,25 @@
         </div>
     </nav>
     {{#if userSession}}
-    <div id="search-results" style="padding-top: 4.53%; padding-left: 78.3%; margin-left: -78px; margin-right: 62px;"></div>
+    <div id="search-results" style="padding-top: 4.53%; padding-left: 78.3%; margin-left: -78px; margin-right: 62px;">
+    </div>
     {{else}}
-    <div id="search-results" style="padding-top: 70px; padding-left: 75.9%; margin-left: 10px; margin-right: 10px;"></div>
+    <div id="search-results" style="padding-top: 70px; padding-left: 75.9%; margin-left: 10px; margin-right: 10px;">
+    </div>
     {{/if}}
+
+    <div class="up-button" style="display: none;">
+        <a href="#"><img src="{{upArrow}}" alt=""></a>
+    </div>
 
 </header>
 
 
 {{!--------------------------------------------------------------------------------------------------------------------------------}}
 
-{{!-- Script for the search box --}}
 <script>
-    const searchBox = document.getElementById("search-input");
-    const searchResults = document.getElementById("search-results");
 
-    searchBox.addEventListener("input", () => {
-        const searchTerm = searchBox.value.trim();
-        if (searchTerm) {
-            // Send an AJAX request to your server with the searchTerm
-            // You can use fetch or jQuery.ajax to make the request
-            // Example using fetch:
-            fetch(`/search?term=${searchTerm}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    // Process the data and display matching results
-                    displayResults(data);
-                });
-        } else {
-            // Clear the results container if the search box is empty
-            searchResults.innerHTML = "";
-        }
-        document.addEventListener("click", (event) => {
-            if (!searchBox.contains(event.target) && !searchResults.contains(event.target)) {
-                // Click occurred outside the search box and results container
-                searchResults.style.display = "none";
-                searchBox.value = "";
-            }
-        });
-
-    });
-
+    
     function displayResults(results) {
         // Clear previous results
         searchResults.innerHTML = "";
@@ -121,11 +99,15 @@
             ul.appendChild(li);
         });
 
+
+
         // Append the list of results to the results container
 
         searchResults.appendChild(ul);
         searchResults.style.display = "block";
     }
+
+
 
     window.addEventListener("pagehide", function () {
         const searchBox = document.getElementById("search-input");
@@ -134,5 +116,25 @@
         searchResults.style.display = "none";
     });
 
+    // script for header to be transparent / solid
+    window.addEventListener("scroll", function () {
+        const header = document.querySelector(".nav-bg");
+        const upArrow = document.querySelector(".up-button")
+        const scrollY = window.scrollY;
+
+        if (scrollY > 0) {
+            //header.style.backgroundColor = "blue";
+            header.style.backgroundColor = "black";
+        } else {
+            header.style.backgroundColor = "transparent";
+        }
+
+        if (scrollY > 10) {
+            //header.style.backgroundColor = "blue";
+            upArrow.style.display = "block";
+        } else {
+            upArrow.style.display = "none";;
+        }
+    });
 
 </script>

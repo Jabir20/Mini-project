@@ -38,7 +38,13 @@ module.exports = {
     },
     getThreeProducts: () => {
         return new Promise(async (resolve, reject) => {
-            let places = await db.get().collection(collection.LOCATIONS).find().limit(3).toArray();
+            let places = await db.get().collection(collection.LOCATIONS).find().limit(6).toArray();
+            resolve(places)
+        })
+    },
+    getAllProducts: () => {
+        return new Promise(async (resolve, reject) => {
+            let places = await db.get().collection(collection.LOCATIONS).find().toArray();
             resolve(places)
         })
     },
@@ -90,6 +96,20 @@ module.exports = {
 
             }
             resolve(weatherInfo)
+        })
+    },
+    storeFeedback: (user, feedback) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.FEEDBACK).insertOne({ user, feedback}).then((data) => {
+                resolve(data)
+            })
+        })
+    },
+    storeSuggestion: (user, location, suggestion) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.SUGGESTION).insertOne({ user, location, suggestion }).then((data) => {
+                resolve(data)
+            })
         })
     }
 
