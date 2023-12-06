@@ -182,5 +182,21 @@ router.post('/suggestion', (req, res) => {
   }))
 })
 
+router.get("/search-locations", async (req, res) => {
+  const searchTerm = req.query.term.toLowerCase();
+  try {
+    const locations = await userHelper.searchPlaces();
+    const matchingLocations = locations.filter((location) =>
+      location.Name.toLowerCase().includes(searchTerm)
+    );
+    console.log(matchingLocations);
+    res.json(matchingLocations);
+  } catch (error) {
+    console.error('Error searching locations:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 module.exports = router;

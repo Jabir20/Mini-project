@@ -2,7 +2,7 @@
     <h2 class="pt-5 text-center"><b>Explore the locations</b></h2>
 
     {{!-- search box to display places using ajax starts --}}
-    {{!-- <div class="search-container-2 py-3 mr-3">
+    <div class="search-container-2 py-3 mr-3">
         <input type="search" class="form-control searchBox-2" id="search-input-2" name="searchBox-2"
             placeholder="Search Here...">
         <button class=" search-btn"><svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="25"
@@ -11,7 +11,7 @@
                     d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z">
                 </path>
             </svg></button>
-    </div> --}}
+    </div>
     {{!-- search box to display places using ajax ends --}}
 
     <div class="ml-5 border-bottom pb-4">
@@ -20,8 +20,8 @@
                 {{#each places}}
                 <div class="col-md-3 mt-3">
                     <div class="location-card card border border-dark" style="width: 18rem; height: 25rem">
-                        <img class="location-image card-img-top" src="/location-images/{{this._id}}.jpg" alt="Card image cap"
-                            style="height: 191px;">
+                        <img class="location-image card-img-top" src="/location-images/{{this._id}}.jpg"
+                            alt="Card image cap" style="height: 191px;">
                         <div class="card-body">
                             <h5 class="card-title"><b>{{this.Name}}</b></h5>
                             <p class="card-text">{{this.Description}}</p>
@@ -49,4 +49,60 @@
             header.style.backgroundColor = "transparent";
         }
     });
+
+
+
+
+
+
+    //Function to update the DOM based on search results
+
+    function updateLocationsDisplay(locations) {
+        const locationsContainer = document.getElementById('all-locations');
+
+        // Clear existing content
+        locationsContainer.innerHTML = '';
+
+        // Add new location cards based on search results
+        locations.forEach(location => {
+            const locationCard = document.createElement('div');
+            locationCard.className = 'col-md-3 mt-3';
+            locationCard.innerHTML = `
+                <div class="location-card card border border-dark" style="width: 18rem; height: 25rem">
+                    <img class="location-image card-img-top" src="/location-images/Locations/${location._id}/${location._id}_Image.jpg"
+                            alt="Card image cap" style="height: 191px;">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>${location.Name}</b></h5>
+                            <p class="card-text">${location.Description}</p>
+                            <a href='/location?id=${location._id}&name=${location.Name}'
+                                class="visit card-btn btn btn-primary">Visit</a>
+                        </div>
+                </div>
+            `;
+            locationsContainer.appendChild(locationCard);
+        });
+    }
+
+    // Function to handle the search
+    function searchPlaces() {
+        const searchTerm = document.getElementById('search-input-2').value.toLowerCase();
+
+        // Make an AJAX request to fetch search results
+        fetch(`/search-locations?term=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update the DOM with the search results
+                updateLocationsDisplay(data);
+            })
+            .catch(error => {
+                console.error('Error fetching search results:', error);
+            });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Attach an event listener to the search button
+        document.querySelector('.searchBox-2').addEventListener('input', searchPlaces);
+    });
+
+
 </script>
