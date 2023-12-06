@@ -1,6 +1,7 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
 const {ObjectId} = require('mongodb')
+const bcrypt = require('bcrypt')
 const { response } = require('../app')
 
 module.exports = {
@@ -56,5 +57,28 @@ module.exports = {
             let suggestions = await db.get().collection(collection.SUGGESTION).find().toArray();
             resolve(suggestions)
         })
-    }
+    },
+    doLogin: (adminData) => {
+        return new Promise(async (resolve, reject) => {
+            let loginStatus = false
+            let response = {}
+            let admin = await db.get().collection(collection.ADMIN).findOne({ Email: adminData.Email })
+            if (admin) {
+                bcrypt.compare(adminData.Password, admin.Password).then((status) => {
+                    if (status) {
+                        console.log("Success");
+                        response.admin = admin
+                        response.status = true
+                        resolve(response)
+                    } else {
+                        console.log("failed");
+                        resolve({ status: false })
+                    }
+                })
+            } else {
+                console.log("Admin Not Found");
+                resolve({ status: false })
+            }
+        })
+    },
 }
