@@ -77,6 +77,7 @@ module.exports = {
                     temp: Math.round(data.main.temp) + "°C",
                     humidity: data.main.humidity + "%",
                     wind: data.wind.speed + "km/hr",
+                    weather:data.weather[0].main,
                 };
                 if (data.weather[0].main == "Clouds") {
                     weatherInfo.icon = "clouds.png";

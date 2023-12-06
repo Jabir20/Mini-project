@@ -125,9 +125,11 @@ router.get('/location', async (req, res) => {
       userHelper.checkWeather(name),
       userHelper.viewLocation(id),
     ]);
+    console.log(weatherData);
     // console.log("weatherData", weatherData);
     // Render the view after you have both weather data and location details
-    res.render('user/location', { user: true, Account: true, showSearch, location, userSession: req.session.user, weatherData });
+    const activityType = ['Clear', 'Rainy', 'Windy']
+    res.render('user/location', { user: true, Account: true, showSearch, location, userSession: req.session.user, weatherData, activityType });
   } catch (error) {
     // Handle errors appropriately
     res.status(500).send('Error fetching data.');
