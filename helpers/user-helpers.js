@@ -61,46 +61,65 @@ module.exports = {
             resolve(details)
         })
     },
-    checkWeather: (locName) => {
+    checkWeather: (locName, res) => {
         const apiKey = "65c7cf2933d703385c935e271566f6b7";
         const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-        let weatherInfo;
+
         return new Promise(async (resolve, reject) => {
             const response = await fetch(apiUrl + locName + `&appid=${apiKey}`);
-            if (response.status == 404) {
-                return { error: 'City not found' };
+
+            if (response.status === 404) {
+                // Location not found
+                res.status(404).json({ error: 'Location not found' });
             } else {
                 const data = await response.json();
-                // console.log(data);
-                weatherInfo = {
-                    city: data.name,
-                    temp: Math.round(data.main.temp) + "°C",
-                    humidity: data.main.humidity + "%",
-                    wind: data.wind.speed + "km/hr",
-                    weather:data.weather[0].main,
-                };
-                if (data.weather[0].main == "Clouds") {
-                    weatherInfo.icon = "clouds.png";
-                } else if (data.weather[0].main == "Clear") {
-                    weatherInfo.icon = "clear.png";
-                } else if (data.weather[0].main == "Rain") {
-                    weatherInfo.icon = "rain.png";
-                } else if (data.weather[0].main == "Drizzle") {
-                    weatherInfo.icon = "drizzle.png";
-                } else if (data.weather[0].main == "Snow") {
-                    weatherInfo.icon = "snow.png";
-                } else if (data.weather[0].main == "Mist") {
-                    weatherInfo.icon = "mist.png";
-                }
-                // console.log(weatherInfo);
+                let weatherInfo = {};
 
+                if (data.cod === '404') {
+                    // Location not found
+                    res.status(404).json({ error: 'Location not found' });
+                } else {
+                    weatherInfo = {
+                        city: data.name,
+                        temp: Math.round(data.main.temp) + "°C",
+                        humidity: data.main.humidity + "%",
+                        wind: data.wind.speed + "km/hr",
+                        weather: data.weather[0].main,
+                    };
+
+                    switch (data.weather[0].main) {
+                        case "Clouds":
+                            weatherInfo.icon = "clouds.png";
+                            break;
+                        case "Clear":
+                            weatherInfo.icon = "clear.png";
+                            break;
+                        case "Rain":
+                            weatherInfo.icon = "rain.png";
+                            break;
+                        case "Drizzle":
+                            weatherInfo.icon = "drizzle.png";
+                            break;
+                        case "Snow":
+                            weatherInfo.icon = "snow.png";
+                            break;
+                        case "Mist":
+                            weatherInfo.icon = "mist.png";
+                            break;
+                        default:
+                            // Handle other weather conditions
+                            break;
+                    }
+                }
+
+                resolve(weatherInfo);
             }
-            resolve(weatherInfo)
-        })
-    },
+        });
+    }
+    ,
     storeFeedback: (user, feedback) => {
         return new Promise(async (resolve, reject) => {
-            db.get().collection(collection.FEEDBACK).insertOne({ user, feedback}).then((data) => {
+            db.get().collection(collection.FEEDBACK).insertOne({ user, feedback }).then((data) => {
                 resolve(data)
             })
         })

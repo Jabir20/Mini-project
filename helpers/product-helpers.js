@@ -11,6 +11,8 @@ module.exports = {
     //     })
     // },
     addProduct: (locationData, callback) => {
+        console.log('At addProduct');
+        console.log(locationData);
         const formattedLocationData = {
             "Name": locationData.Name,
             "About": locationData.About,
@@ -24,10 +26,13 @@ module.exports = {
         };
         db.get().collection(collection.LOCATIONS).insertOne(formattedLocationData)
             .then((data) => {
+                console.log("Inserted successfully");
+                // Only pass the ID in the success case
                 callback(data.insertedId);
             })
             .catch((error) => {
                 console.error('Error inserting location data:', error);
+                // Pass only the error in the error case
                 callback(null, error);
             });
     },

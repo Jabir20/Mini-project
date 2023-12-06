@@ -122,19 +122,26 @@ router.get('/location', async (req, res) => {
   try {
     // Fetch the weather data and location details concurrently
     const [weatherData, location] = await Promise.all([
-      userHelper.checkWeather(name),
+      userHelper.checkWeather(name, res),
       userHelper.viewLocation(id),
     ]);
-    console.log(weatherData);
-    // console.log("weatherData", weatherData);
+
+    // Check if location details are not found
+    if (!location) {
+      // Handle the case where the location is not found
+      return res.status(404).render('error', { message: 'Location not found' });
+    }
+
     // Render the view after you have both weather data and location details
-    const activityType = ['Clear', 'Rainy', 'Windy']
+    const activityType = ['Clear', 'Rainy', 'Windy'];
     res.render('user/location', { user: true, Account: true, showSearch, location, userSession: req.session.user, weatherData, activityType });
   } catch (error) {
-    // Handle errors appropriately
-    res.status(500).send('Error fetching data.');
+    // Handle other errors appropriately
+    console.error('Error fetching data:', error);
+    res.status(500).render('error', { message: 'Error fetching data' });
   }
 });
+
 
 router.get('/all-places', verifyLogin, (req, res) => {
   let userSession = req.session.user

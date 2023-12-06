@@ -1,6 +1,6 @@
 <section>
     <div class="banner border-bottom pb-4">
-        <img src="/location-images/{{location._id}}.jpg" class="banner-img" style="margin-top: -2%">
+        <img src="/location-images/Locations/{{location._id}}/{{location._id}}_Image.jpg" class="banner-img" style="margin-top: -2%">
 
         {{!-- Weather API --}}
         <div class="weather-card">
@@ -116,8 +116,8 @@
 
     <script>
         // Assume you have a variable 'weatherCondition' with values like 'Clear', 'Rainy', 'Windy'
-        var weatherCondition = {{ weatherData.weather }};  // Replace this with the actual weather condition
-        // var weatherCondition = 'windy';  // Replace this with the actual weather condition
+        //var weatherCondition = {{ weatherData.weather }};  // Replace this with the actual weather condition
+         var weatherCondition = 'windy';  // Replace this with the actual weather condition
 
         // Function to add weather-specific classes to activities
         function addWeatherClasses(weather) {
@@ -153,8 +153,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            /* Adjust the z-index if needed */
+            /*z-index: 1;
+             Adjust the z-index if needed */
         }
 
         .highlight-activity .card::before {

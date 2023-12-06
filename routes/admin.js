@@ -43,34 +43,58 @@ router.get('/add-location', verifyLogin, (req, res) => {
 
 router.post('/add-location', (req, res) => {
   const imageFields = ['Image', 'ClearImage1', 'ClearImage2', 'ClearImage3', 'RainyImage1', 'RainyImage2', 'RainyImage3', 'WindyImage1', 'WindyImage2', 'WindyImage3'];
-  productHelper.addProduct(req.body, (id) => {
+console.log(req.body);
+  productHelper.addProduct(req.body, (id, error) => {
+    if (error) {
+      console.error('Error adding product:', error);
+      // Handle the error (e.g., send an error response)
+      res.status(500).send('Internal Server Error');
+    } else {
+      const folderPath = `./public/location-images/Locations/${id}`;
 
-    const folderPath = `./public/test-images/${id}`;
+      // Create the folder if it doesn't exist
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath);
+      }
 
-    // Create the folder if it doesn't exist
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath);
+      imageFields.forEach((fieldName) => {
+        let image = req.files[fieldName];
+        if (image) {
+          image.mv(`${folderPath}/${id}_${fieldName}.jpg`, (err) => {
+            if (err) {
+              console.log(err);
+              // Handle the error (e.g., log it or send an error response)
+            }
+          });
+        }
+      });
+
+      res.redirect('/admin/add-location');
+    }
+  });
+});
+
+
+
+router.get('/delete-location', async (req, res) => {
+  try {
+    let locationId = req.query.id
+    const folderPath = `./public/location-images/Locations/${locationId}`;
+
+    // Check if the directory exists before attempting to delete
+    if (fs.existsSync(folderPath)) {
+      fs.rmdirSync(folderPath, { recursive: true });
     }
 
-    imageFields.forEach((fieldName) => {
-      let image = req.files[fieldName];
-      if (image) {
-        image.mv(`${folderPath}/${id}_${fieldName}.jpg`, (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-    });
-    res.redirect('/admin/add-location')
-  })
+    await productHelper.deleteLocation(locationId);
+    res.redirect('/admin/all-locations');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
-router.get('/delete-location', (req, res) => {
-  let locationId = req.query.id
-  productHelper.deleteLocation(locationId).then((response) => {
-    res.redirect('/admin/all-locations')
-  })
-})
+
+
 router.get('/edit-location', async (req, res) => {
   let locationId = req.query.id
   let location = await productHelper.getProduct(locationId)
@@ -86,7 +110,9 @@ router.post('/edit-location', (req, res) => {
   productHelper.updateLocation(locationId, req.body)
     .then(() => {
       const imageFields = ['Image', 'ClearImage1', 'ClearImage2', 'ClearImage3', 'RainyImage1', 'RainyImage2', 'RainyImage3', 'WindyImage1', 'WindyImage2', 'WindyImage3'];
-      const folderPath = `./public/test-images/${locationId}`;
+      // const folderPath = `./public/test-images/${locationId}`;
+      const folderPath = `./public/location-images/Locations/${locationId}`;
+
 
       if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath);
