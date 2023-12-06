@@ -28,13 +28,14 @@ const androidBadge = "/images/AppBadge__android.png"
 const apppromo = "/images/apppromo.png"
 const comingSoon = "/images/coming-soon.png"
 const upArrow = "/images/up-arrow.png"
+const showSearch = true
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   let userSession = req.session.user
   // console.log(userSession);
   userHelper.getThreeProducts().then((places) => {
-    res.render('user/view-location', { places, banner1, banner2, banner3, banner4, banner5, banner6, bgimage, image1, image2, image3, image4, comingSoon, iosBadge, androidBadge, apppromo, upArrow, user: true, footer: true, Account: true, userSession });
+    res.render('user/view-location', { places, showSearch, banner1, banner2, banner3, banner4, banner5, banner6, bgimage, image1, image2, image3, image4, comingSoon, iosBadge, androidBadge, apppromo, upArrow, user: true, footer: true, Account: true, userSession });
   })
 });
 router.get('/login', (req, res) => {
@@ -93,9 +94,9 @@ router.get("/search", async (req, res) => {
     const matchingLocations = response.filter((location) =>
       location.Name.toLowerCase().includes(searchTerm)
     );
-    if (matchingLocations === null || (Array.isArray(matchingLocations) && matchingLocations.length === 0))
-      console.log('erorr');
-    // console.log(matchingLocations);
+    // if (matchingLocations === null || (Array.isArray(matchingLocations) && matchingLocations.length === 0))
+    //   console.log('erorr');
+    console.log(matchingLocations);
     res.json(matchingLocations);
   })
 });
@@ -124,9 +125,9 @@ router.get('/location', async (req, res) => {
       userHelper.checkWeather(name),
       userHelper.viewLocation(id),
     ]);
-    console.log("weatherData", weatherData);
+    // console.log("weatherData", weatherData);
     // Render the view after you have both weather data and location details
-    res.render('user/location', { user: true, Account: true, location, userSession: req.session.user, weatherData });
+    res.render('user/location', { user: true, Account: true, showSearch, location, userSession: req.session.user, weatherData });
   } catch (error) {
     // Handle errors appropriately
     res.status(500).send('Error fetching data.');

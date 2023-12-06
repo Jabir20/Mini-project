@@ -1,52 +1,90 @@
 <section>
     <div class="container mt-4" style="padding-top: 80px;">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-center">Add Location</h2>
-                <form action="/admin/add-location" method="POST" enctype="multipart/form-data">
-                    <label for="">Location Name</label>
-                    <input type="text" name="Name" class="form-control">
 
-                    <label for="">Description</label>
-                    <input type="text" name="Description" class="form-control">
+        <div class="col-md-6 justify add-location">
+            <h2 class="text-center">Add Location</h2>
+            <form action="/admin/add-location" method="POST" enctype="multipart/form-data">
+                <label for="">Location Name</label>
+                <input type="text" name="Name" class="form-control">
 
-                    <label for="">Attraction</label>
-                    <input type="text" name="Attraction" class="form-control">
+                <label for="">Description</label>
+                <input type="text" name="Description" class="form-control">
 
-                    <label for="">Local Cuisine</label>
-                    <input type="text" name="Cuisine" class="form-control">
+                <label for="">Attraction</label>
+                <input type="text" name="Attraction" class="form-control">
 
-                    <label for="">Activity</label>
-                    <input type="text" name="Activity" class="form-control">
+                <label for="">Local Cuisine</label>
+                <input type="text" name="Cuisine" class="form-control">
 
-                    <label for="">Image</label>
-                    <input type="file" name="Image" class="form-control">
+                <label for="">Activity</label>
+                <input type="text" name="Activity" class="form-control">
 
-                    <button type="submit" class="btn btn-info mt-4">Add</button>
-            </div>
-            <div class="col-md-3 mt-5 ml-5">
-                <label for="">Activity 1</label>
-                <input type="file" name="Image" class="form-control mb-2">
-                <label for="">Activity 1 Description</label>
-                <input type="text" name="Activity" class="form-control mb-4">
-                <label for="">Activity 2</label>
-                <input type="file" name="Image" class="form-control mb-2">
-                <label for="">Activity 2 Description</label>
-                <input type="text" name="Activity" class="form-control mb-4">
-                <label for="">Activity 3</label>
-                <input type="file" name="Image" class="form-control mb-2">
-                <label for="">Activity 3 Description</label>
-                <input type="text" name="Activity" class="form-control mb-4">
-            </div>
+                <label for="">Image</label>
+                <input type="file" name="Image" class="form-control">
 
-            </form>
-            {{!-- <br>
-            {{#if successMessage}}
-            <div class="alert alert-success">
-                {{successMessage}}
-            </div>
-            {{/if}} --}}
 
         </div>
+
+        <div class="activities  border mt-5">
+            <h5 class="text-center mt-4"><b>Activities</b></h5>
+            <div class="row">
+                <div class="col-md-3 mt-3" style="margin-left: 90px;">
+                    <h5 class="text-center"><b>Clear</b></h5>
+                    <label for="">Activity 1</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 1 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                    <label for="">Activity 2</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 2 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                    <label for="">Activity 3</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 3 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                </div>
+                <div class="col-md-3 mt-3 ml-5">
+                    <h5 class="text-center"><b>Rainy</b></h5>
+                    <label for="">Activity 1</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 1 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                    <label for="">Activity 2</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 2 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                    <label for="">Activity 3</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 3 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                </div>
+                <div class="col-md-3 mt-3 ml-5">
+                    <h5 class="text-center"><b>Windy</b></h5>
+                    <label for="">Activity 1</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 1 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                    <label for="">Activity 2</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 2 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                    <label for="">Activity 3</label>
+                    <input type="file" name="Image" class="form-control mb-2">
+                    <label for="">Activity 3 Description</label>
+                    <input type="text" name="Activity" class="form-control mb-4">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info my-5 add-btn">Add</button>
+
+        </form>
+        {{!-- <br>
+        {{#if successMessage}}
+        <div class="alert alert-success">
+            {{successMessage}}
+        </div>
+        {{/if}} --}}
+
     </div>
 </section>

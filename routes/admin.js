@@ -2,12 +2,16 @@ var express = require('express');
 var router = express.Router();
 const productHelper = require('../helpers/product-helpers')
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  productHelper.getAllProducts().then((places) => {
+// router.get('/', function (req, res, next) {
+//   productHelper.getAllProducts().then((places) => {
 
-    res.render('admin/view-locations', { places, admin: true })
-  })
-});
+//     res.render('admin/view-locations', { places, admin: true })
+//   })
+// });
+
+router.get('/', (req,res,next)=>{
+  res.render('admin/login',{admin:true})
+})
 
 router.get('/add-location', (req, res) => {
   res.render('admin/add-location')

@@ -25,6 +25,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form> --}}
             {{#if Account}}
+            {{#if showSearch}}
             <div class="search-container mr-3">
                 <input type="search" class="form-control searchBox" id="search-input" name="searchBox"
                     placeholder="Search Here...">
@@ -35,6 +36,7 @@
                         </path>
                     </svg></button>
             </div><br>
+            {{/if}}
 
 
             {{!-- <button class="btn mr-5"><a href="/login" class="login-btn">Login</a></button> --}}
@@ -81,7 +83,38 @@
 
 <script>
 
-    
+    const searchBox = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
+    const searchBtn = document.getElementById("search-btn");
+
+    searchBox.addEventListener("input", () => {
+        const searchTerm = searchBox.value.trim();
+        // console.log(searchTerm);
+        if (searchTerm) {
+            // Send an AJAX request to your server with the searchTerm
+            // You can use fetch or jQuery.ajax to make the request
+            // Example using fetch:
+            fetch(`/search?term=${searchTerm}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Process the data and display matching results
+                    displayResults(data);
+                });
+        } else {
+            // Clear the results container if the search box is empty
+            searchResults.innerHTML = "";
+        }
+        document.addEventListener("click", (event) => {
+            if (!searchBox.contains(event.target) && !searchResults.contains(event.target)) {
+                // Click occurred outside the search box and results container
+                searchResults.style.display = "none";
+                searchBox.value = "";
+            }
+        });
+
+    });
+
+    // To display the search result
     function displayResults(results) {
         // Clear previous results
         searchResults.innerHTML = "";
@@ -98,16 +131,11 @@
             li.appendChild(link);
             ul.appendChild(li);
         });
-
-
-
         // Append the list of results to the results container
 
         searchResults.appendChild(ul);
         searchResults.style.display = "block";
     }
-
-
 
     window.addEventListener("pagehide", function () {
         const searchBox = document.getElementById("search-input");

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Cards</title>
+    <style>
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            width: 22%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .visit {
+            background-color: green;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .visit:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-title">Alappuzha</div>
+            <div class="card-content">Breathtaking natural wonders to serene backwaters</div>
+            <button class="visit">Visit</button>
+        </div>
+        <div class="card">
+            <div class="card-title">Munnar</div>
+            <div class="card-content">Picture perfect hill station with lush tea plantations</div>
+            <button class="visit">Visit</button>
+        </div>
+        <div class="card">
+            <div class="card-title">Kochi</div>
+            <div class="card-content">Historic port city with cultural diversity and historic sites</div>
+            <button class="visit">Visit</button>
+        </div>
+        <div class="card">
+            <div class="card-title">Another Destination</div>
+            <div class="card-content">Write a short description of your favorite destination here</div>
+            <button class="visit">Visit</button>
+        </div>
+    </div>
+</body>
+</html>

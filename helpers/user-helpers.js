@@ -64,10 +64,9 @@ module.exports = {
     checkWeather: (locName) => {
         const apiKey = "65c7cf2933d703385c935e271566f6b7";
         const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-        let weatherInfo
+        let weatherInfo;
         return new Promise(async (resolve, reject) => {
             const response = await fetch(apiUrl + locName + `&appid=${apiKey}`);
-
             if (response.status == 404) {
                 return { error: 'City not found' };
             } else {
@@ -114,3 +113,7 @@ module.exports = {
     }
 
 }
+
+
+
+// api.openweathermap.org/data/2.5/forecast?id={city ID}&appid={API key}
