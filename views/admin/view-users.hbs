@@ -1,0 +1,40 @@
+<section class="mt-4">
+    <div class="container" style="padding-top: 80px;">
+        <table class="table mt-5" id="locationsTable">
+            <thead>
+                <tr>
+
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <th>{{this._id}}</th>
+                    <td style="width: 300px;">{{this.Name}}</td>
+                    <td style="width: 300px;">{{this.Email}}</td>
+                    <td>
+                        {{#unless this.isFrozen}}
+                        <button class="btn btn-dark" disabled>Unfreeze</button>
+                        <a href="/admin/freeze-user?id={{this._id}}" class="btn btn-danger"
+                            onclick="return confirm('Do you want to Freeze the account of {{this.Name}} ?')">Freeze</a>
+                        {{else}}
+                        <a href="/admin/unfreeze-user?id={{this._id}}" class="btn btn-primary">Unfreeze</a>
+                        <button class="btn btn-dark" disabled>Freeze</button>
+                        {{/unless}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        $('#locationsTable').DataTable();
+    });
+</script>

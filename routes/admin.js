@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const fs = require('fs')
-const productHelper = require('../helpers/product-helpers')
+const productHelper = require('../helpers/product-helpers');
+const { log } = require('console');
 const verifyLogin = (req, res, next) => {
   if (req.session.login) {
     next()
@@ -30,6 +31,12 @@ router.get('/all-locations', function (req, res, next) {
   productHelper.getAllProducts().then((places) => {
 
     res.render('admin/view-locations', { places, admin: true })
+  })
+});
+router.get('/all-users', function (req, res, next) {
+  productHelper.getAllUsers().then((users) => {
+
+    res.render('admin/view-users', { users, admin: true })
   })
 });
 
@@ -152,5 +159,22 @@ router.get('/view-suggestion', verifyLogin, (req, res) => {
     res.render('admin/view-suggestion', { suggestions, admin: true })
   })
 });
+
+router.get('/freeze-user', verifyLogin, (req, res) => {
+  let userId = req.query.id
+  console.log(userId);
+   productHelper.freezeUser(userId)
+    console.log("Account Freezed");
+    res.redirect('/admin/all-users')
+});
+
+router.get('/unfreeze-user', verifyLogin, (req, res) => {
+  let userId = req.query.id
+   productHelper.unfreezeUser(userId)
+    console.log("Account Unfreezed");
+    res.redirect('/admin/all-users')
+});
+
+
 
 module.exports = router;

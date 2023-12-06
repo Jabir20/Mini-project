@@ -7,10 +7,16 @@ const { log } = require('handlebars')
 module.exports = {
     doSignup: (userData) => {
         return new Promise(async (resolve, reject) => {
-            userData.Password = await bcrypt.hash(userData.Password, 10)
-            db.get().collection(collection.USER).insertOne(userData).then((data) => {
-                resolve(data)
-            })
+            const existingUser = await db.get().collection(collection.USER).findOne({ Email: userData.Email });
+            if (existingUser) {
+                // If the email exists, reject the signup with an error message
+                reject('Email ID already exists.');
+            }else{
+                userData.Password = await bcrypt.hash(userData.Password, 10)
+                db.get().collection(collection.USER).insertOne(userData).then((data) => {
+                    resolve(data)
+                })
+            }
         })
     },
     doLogin: (userData) => {
@@ -51,6 +57,12 @@ module.exports = {
     searchPlaces: () => {
         return new Promise(async (resolve, reject) => {
             locations = await db.get().collection(collection.LOCATIONS).find({}, { projection: { Name: 1 } }).toArray();
+            resolve(locations)
+        })
+    },
+    searchPlaces2: () => {
+        return new Promise(async (resolve, reject) => {
+            locations = await db.get().collection(collection.LOCATIONS).find({}, { projection: { Name: 1, Description: 1 } }).toArray();
             resolve(locations)
         })
     },

@@ -48,19 +48,34 @@ router.get('/signup', (req, res) => {
 router.get('/back', (req, res) => {
   res.redirect('/')
 })
-router.post('/signup', (req, res) => {
-  userHelper.doSignup(req.body).then((response) => {
-    req.session.loggedIn = true
-    req.session.user = response
-    res.redirect('/')
-  })
-})
+router.post('/signup', async (req, res) => {
+  try {
+    const response = await userHelper.doSignup(req.body);
+    req.session.loggedIn = true;
+    req.session.user = response;
+    res.redirect('/');
+  } catch (error) {
+    // Handle the specific error when the email already exists
+    if (error === 'Email ID already exists.') {
+      res.render('user/signup', { emailError: 'Email ID already exists. Please use a different email.' });
+    } else {
+      // Handle other errors (e.g., database error)
+      console.error('Signup error:', error);
+      res.status(500).send('Error during signup. Please try again.');
+    }
+  }
+});
 router.post('/login', (req, res) => {
   userHelper.doLogin(req.body).then((response) => {
     if (response.status) {
-      req.session.loggedIn = true
-      req.session.user = response.user
-      res.redirect('/')
+      if (response.user.isFrozen) {
+        // User account is frozen, render a page with a message
+        res.render('user/account-restricted', {user:true, message: 'Access to your account is restricted due to a violation of Privacy Policy.' });
+      } else {
+        req.session.loggedIn = true
+        req.session.user = response.user
+        res.redirect('/')
+      }
     } else {
       req.session.loginErr = true
       res.redirect('/login')
@@ -185,12 +200,17 @@ router.post('/suggestion', (req, res) => {
 router.get("/search-locations", async (req, res) => {
   const searchTerm = req.query.term.toLowerCase();
   try {
-    const locations = await userHelper.searchPlaces();
+    const locations = await userHelper.searchPlaces2();
     const matchingLocations = locations.filter((location) =>
       location.Name.toLowerCase().includes(searchTerm)
     );
-    console.log(matchingLocations);
-    res.json(matchingLocations);
+    const filteredLocations = matchingLocations.map(({ Name, Description, _id }) => ({
+      Name,
+      Description,
+      _id
+    }));
+    console.log(filteredLocations);
+    res.json(filteredLocations);
   } catch (error) {
     console.error('Error searching locations:', error);
     res.status(500).json({ error: 'Internal server error' });

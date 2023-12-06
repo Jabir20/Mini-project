@@ -42,6 +42,12 @@ module.exports = {
             resolve(places)
         })
     },
+    getAllUsers: () => {
+        return new Promise(async (resolve, reject) => {
+            let users = await db.get().collection(collection.USER).find().toArray();
+            resolve(users)
+        })
+    },
     deleteLocation: (locationId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.LOCATIONS).deleteOne({ _id: new ObjectId(locationId) }).then((response) => {
@@ -118,6 +124,18 @@ module.exports = {
                 console.log("Admin Not Found");
                 resolve({ status: false })
             }
+        })
+    },
+    freezeUser: (userId) => {
+        console.log("user id in freezeUser()",userId);
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.USER).updateOne({ _id: new ObjectId(userId) }, { $set: { isFrozen: true } })
+            // resolve(suggestions)
+        })
+    },
+    unfreezeUser: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.USER).updateOne({ _id: new ObjectId(userId) }, { $set: { isFrozen: false } })
         })
     },
 }
