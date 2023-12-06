@@ -1,14 +1,35 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
-const {ObjectId} = require('mongodb')
+const { ObjectId } = require('mongodb')
 const bcrypt = require('bcrypt')
 const { response } = require('../app')
 
 module.exports = {
-    addProduct: (places, callback) => {
-        db.get().collection(collection.LOCATIONS).insertOne(places).then((data) => {
-            callback(data.insertedId)
-        })
+    // addProduct: (places, callback) => {
+    //     db.get().collection(collection.LOCATIONS).insertOne(places).then((data) => {
+    //         callback(data.insertedId)
+    //     })
+    // },
+    addProduct: (locationData, callback) => {
+        const formattedLocationData = {
+            "Name": locationData.Name,
+            "About": locationData.About,
+            "Description": locationData.Description,
+            "Cuisine": locationData.Cuisine,
+            "Activities": {
+                "Clear": [locationData.ClearActivity1, locationData.ClearActivity2, locationData.ClearActivity3],
+                "Rainy": [locationData.RainyActivity1, locationData.RainyActivity2, locationData.RainyActivity3],
+                "Windy": [locationData.WindyActivity1, locationData.WindyActivity2, locationData.WindyActivity3]
+            }
+        };
+        db.get().collection(collection.LOCATIONS).insertOne(formattedLocationData)
+            .then((data) => {
+                callback(data.insertedId);
+            })
+            .catch((error) => {
+                console.error('Error inserting location data:', error);
+                callback(null, error);
+            });
     },
     getAllProducts: () => {
         return new Promise(async (resolve, reject) => {
@@ -23,28 +44,41 @@ module.exports = {
             })
         })
     },
-    getProduct:(locationId)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.LOCATIONS).findOne({_id: new ObjectId(locationId)}).then((response)=>{
+    getProduct: (locationId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.LOCATIONS).findOne({ _id: new ObjectId(locationId) }).then((response) => {
                 resolve(response)
             })
         })
     },
-    updateLocation:(locationId,details)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.LOCATIONS)
-            .updateOne({_id:new ObjectId(locationId)},{
-                $set:{
-                    Name:details.Name,
-                    Description:details.Description,
-                    Attraction:details.Attraction,
-                    Cuisine:details.Cuisine,
-                    Activity:details.Activity
+    updateLocation: (locationId, details) => {
+        return new Promise((resolve, reject) => {
+            // console.log(locationId);
+            // console.log(details);
+
+            const formattedLocationData = {
+                "Name": details.Name,
+                "About": details.About,
+                "Description": details.Description,
+                "Cuisine": details.Cuisine,
+                "Activities": {
+                    "Clear": [details.ClearActivity1, details.ClearActivity2, details.ClearActivity3],
+                    "Rainy": [details.RainyActivity1, details.RainyActivity2, details.RainyActivity3],
+                    "Windy": [details.WindyActivity1, details.WindyActivity2, details.WindyActivity3]
+                    // Add more activities as needed
                 }
-            }).then((response)=>{
-                resolve(response)
-            })
-        })
+            };
+
+            db.get().collection(collection.LOCATIONS)
+                .updateOne({ _id: new ObjectId(locationId) }, { $set: formattedLocationData })
+                .then((response) => {
+                    resolve(response);
+                })
+                .catch((error) => {
+                    console.error('Error updating location data:', error);
+                    reject(error);
+                });
+        });
     },
     getAllFeedbacks: () => {
         return new Promise(async (resolve, reject) => {
